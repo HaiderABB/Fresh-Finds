@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv(".env")
 
-root_router = APIRouter()
+root_router = APIRouter(prefix="/FreshFinds")
 
 app = FastAPI(title="Fresh Finds")
 
