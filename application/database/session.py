@@ -11,10 +11,6 @@ Base = declarative_base()
 
 
 def orjson_serializer(obj):
-    """
-    Note that `orjson.dumps()` return byte array, while sqlalchemy expects string, thus `decode()` call.
-    This function helped to solve JSON datetime conversion issue on JSONB column
-    """
     return orjson.dumps(
         obj, option=orjson.OPT_SERIALIZE_NUMPY | orjson.OPT_NAIVE_UTC
     ).decode()
@@ -34,15 +30,16 @@ def init_db():
     # Create an engine connected to the PostgreSQL database
     engine = create_engine(os.environ['DB_URL'])
 
-    # Create all tables defined in the Base metadata
-    Base.metadata.create_all(bind=engine)
+
+print("Database Connection Successful")
+# Create all tables defined in the Base metadata
+Base.metadata.create_all(bind=engine)
 
 
 def get_db():
     db = SessionLocal()
     try:
         yield db
-        print('Database connection successful')
 
     finally:
         db.close()
