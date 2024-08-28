@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, Float, Boolean, TIMESTAMP, ForeignKey, text
-from App.database.session import Base
+from application.database.session import Base
 
 
 class Order(Base):

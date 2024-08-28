@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, DateTime, String, Boolean
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.sql import func
-from App.database.session import Base
+from application.database.session import Base
 
 
 class Category(Base):

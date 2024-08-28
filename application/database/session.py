@@ -4,22 +4,8 @@ from dotenv import load_dotenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.engine.url import URL
+load_dotenv()
 
-
-load_dotenv(".env")
-
-
-DATABASE = {
-    'drivername': 'postgresql',
-    'host': 'localhost',
-    'port': os.environ["PORT"],
-    'username': os.environ['DB_USER'],
-    'password': os.environ['DB_PASSWORD'],
-    'database': os.environ['DB_NAME']
-}
-
-DATABASE_URL = URL(**DATABASE)
 
 Base = declarative_base()
 
@@ -35,13 +21,21 @@ def orjson_serializer(obj):
 
 
 engine = create_engine(
-    DATABASE_URL,
+    os.environ['DB_URL'],
     json_serializer=orjson_serializer,
     json_deserializer=orjson.loads,
     connect_args={}
 )
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+
+def init_db():
+    # Create an engine connected to the PostgreSQL database
+    engine = create_engine(os.environ['DB_URL'])
+
+    # Create all tables defined in the Base metadata
+    Base.metadata.create_all(bind=engine)
 
 
 def get_db():

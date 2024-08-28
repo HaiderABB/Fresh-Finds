@@ -1,7 +1,7 @@
 from sqlalchemy import TIMESTAMP, Column, Integer, DateTime, String, Boolean, text, true
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.sql import func
-from App.database.session import Base
+from application.database.session import Base
 
 
 class users(Base):
