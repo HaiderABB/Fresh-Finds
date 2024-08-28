@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, DateTime, String, Boolean
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.sql import func
-from application.database.session import Base
+from database.session import Base
 
 
 class Category(Base):
@@ -11,3 +11,7 @@ class Category(Base):
                 nullable=False, unique=True)
     category_name = Column(String(100), nullable=False)
     description = Column(String(255), nullable=False)
+
+
+class Config:
+    orm_mode = True

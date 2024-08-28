@@ -17,3 +17,7 @@ class CartItem(Base):
     quantity = Column(Integer, nullable=False)
     created_at = Column(TIMESTAMP(timezone=True), server_default=text(
         'CURRENT_TIMESTAMP'), nullable=False)
+
+
+class Config:
+    orm_mode = True

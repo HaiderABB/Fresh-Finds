@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, Float, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import relationship
-from application.database.session import Base
+from database.session import Base
 
 
 class OrderItem(Base):
@@ -15,3 +15,7 @@ class OrderItem(Base):
         'products.id', ondelete='CASCADE', onupdate='CASCADE'), nullable=False)
     quantity = Column(Integer, nullable=False)
     price = Column(Float)
+
+
+class Config:
+    orm_mode = True

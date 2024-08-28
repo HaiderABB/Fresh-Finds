@@ -1,5 +1,5 @@
 from sqlalchemy import TIMESTAMP, Column, Float, ForeignKey, Integer, String, text
-from application.database.session import Base
+from database.session import Base
 
 
 class Product(Base):
@@ -17,3 +17,7 @@ class Product(Base):
         'CURRENT_TIMESTAMP'), nullable=False)
     updated_at = Column(TIMESTAMP(timezone=True), server_default=text(
         'CURRENT_TIMESTAMP'), onupdate=text('CURRENT_TIMESTAMP'), nullable=False)
+
+
+class Config:
+    orm_mode = True

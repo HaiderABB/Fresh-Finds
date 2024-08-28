@@ -1,7 +1,7 @@
 from sqlalchemy import TIMESTAMP, Column, Integer, DateTime, String, Boolean, text, true
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.sql import func
-from application.database.session import Base
+from database.session import Base
 
 
 class users(Base):
@@ -16,3 +16,6 @@ class users(Base):
         'CURRENT_TIMESTAMP'), nullable=False)
     updated_at = Column(TIMESTAMP(timezone=True), server_default=text(
         'CURRENT_TIMESTAMP'), onupdate=text('CURRENT_TIMESTAMP'), nullable=False)
+
+    class Config:
+        orm_mode = True
