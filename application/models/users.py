@@ -18,4 +18,4 @@ class users(Base):
         'CURRENT_TIMESTAMP'), onupdate=text('CURRENT_TIMESTAMP'), nullable=False)
 
     class Config:
-        orm_mode = True
+        from_attributes = True

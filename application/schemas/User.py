@@ -14,7 +14,7 @@ class user_registration_response(BaseModel):
     message: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class user_auth(BaseModel):
@@ -28,7 +28,7 @@ class user_auth_response(BaseModel):
     message: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class user_retrieve_response(BaseModel):
@@ -38,7 +38,7 @@ class user_retrieve_response(BaseModel):
     updated_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True
 
 
 class user_logout(BaseModel):
@@ -50,4 +50,4 @@ class user_logout_response(BaseModel):
     message: str
 
     class Config:
-        orm_mode = True
+        from_attributes = True

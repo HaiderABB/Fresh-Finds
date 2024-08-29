@@ -18,4 +18,4 @@ class Order(Base):
 
 
 class Config:
-    orm_mode = True
+    from_attributes = True
