@@ -1,6 +1,5 @@
 from sqlalchemy import func, text
 from sqlalchemy.orm import Session
-from database.session import get_db
 
 
 def register_user(user_data, db: Session):
@@ -22,5 +21,5 @@ def register_user(user_data, db: Session):
 def validate_user(user_email, db: Session) -> bool:
     sql_command = text("""SELECT validate_user(:email)""")
     result = db.execute(sql_command, {'email': user_email})
-    return result.scalar()
     db.commit()
+    return result.scalar()
