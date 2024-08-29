@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from models.users import users
 from crud.users.register_user import register_user as crud_register_user, validate_user
+from utils.password_hash import hash_password
 
 auth_router = APIRouter(prefix="/FreshFinds/auth")
 
@@ -14,8 +15,8 @@ def register_user(payload: user_registration, db: Session = Depends(get_db)):
     # Create the user data object
     user_data = users(
         username=payload.username,
-        email=payload.email,
-        password_hash=payload.password  # Assuming this is hashed elsewhere
+        email=payload.email.lower(),
+        password_hash=hash_password(payload.password)
     )
 
     # Check if the user already exists
