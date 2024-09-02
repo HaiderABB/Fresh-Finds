@@ -122,6 +122,8 @@ class Authenticated_User(Base):
     __tablename__ = "authenticated_users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=False,
                                     nullable=False, unique=True)
+    isLoggedIn: Mapped[Boolean] = mapped_column(
+        Boolean, default=True, nullable=False)
 
     class Config:
         from_attributes = True

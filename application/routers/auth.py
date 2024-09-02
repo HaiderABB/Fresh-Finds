@@ -7,6 +7,7 @@ from models.model import User
 from crud.users.crud_register_user import register_user as crud_register_user, user_exists
 from utils.password_hash import hash_password_bcrypt
 from crud.users.crud_user_login import validate_user_status, crud_login_user, verify_user_password
+from utils.jwt_token import create_jwt_token
 
 auth_router = APIRouter(prefix="/FreshFinds/auth")
 
@@ -45,10 +46,11 @@ def login_user(payload: user_login, db: Session = Depends(get_db)):
         isValid = validate_user_status(user_data.email, db)
         if isValid:
             validPass = verify_user_password(
-                user_data.email, user_data.password_hash)
+                user_data.email, user_data.password_hash, db)
             if validPass:
                 id = crud_login_user(user_data, db)
-
+                jwt_token = create_jwt_token(id)
+                return {"jwt_token": jwt_token, "login": True, "password": True, "email": True, "status": True, "message": "Login Successful"}
             else:
                 raise HTTPException(status_code=401, detail={
                                     "jwt_token": False, "login": False, "password": False, "email": True, "status": True, "message": "Invalid Password"})
