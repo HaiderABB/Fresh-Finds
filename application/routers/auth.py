@@ -9,6 +9,7 @@ from utils.password_hash import hash_password_bcrypt
 from crud.users.crud_user_login import validate_user_status, crud_login_user, verify_user_password
 from utils.jwt_token import create_jwt_token, unsign_jwt_token
 from crud.users.crud_retrieve_data import crud_retrieve_user
+from crud.users.crud_logout_user import crud_logout_user
 
 auth_router = APIRouter(prefix="/FreshFinds/auth")
 
@@ -77,3 +78,15 @@ def get_user_me(payload: user_retrieve, db: Session = Depends(get_db)):
     else:
         raise HTTPException(status_code=401, detail={
             "token": False, "message": "Please provide a jwt_token"})
+
+
+@auth_router.post("/logout", status_code=200, response_model=user_logout_response)
+def user_logout(payload: user_logout, db: Session = Depends(get_db)):
+    user_id = unsign_jwt_token(payload.jwt_token)
+    validToken = bool(user_id)
+    if validToken:
+        logout = crud_logout_user(user_id, db)
+        return {"logout": logout, "token": True, "message": "Logout Successful"}
+    else:
+        raise HTTPException(status_code=404, detail={
+            "logout": False, "token": False, "message": "Invalid Token"})

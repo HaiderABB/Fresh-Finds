@@ -58,6 +58,7 @@ class user_logout(BaseModel):
 
 class user_logout_response(BaseModel):
     logout: bool
+    token: bool
     message: str
 
     class Config:
