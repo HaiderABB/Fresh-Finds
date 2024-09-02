@@ -3,8 +3,8 @@ from database.session import get_db
 from schemas.user import user_registration, user_registration_response, user_auth, user_auth_response, user_logout, user_logout_response, user_retrieve_response
 from sqlalchemy.orm import Session
 from sqlalchemy import func
-from models.users import users
-from application.crud.users.crud_register_user import register_user as crud_register_user, validate_user
+from application.models.user import users
+from crud.users.crud_register_user import register_user as crud_register_user, validate_user
 from utils.password_hash import hash_password_bcrypt
 from crud.users.crud_authenticate_user import validate_user_status, crud_authenticate_user, verify_user_password
 

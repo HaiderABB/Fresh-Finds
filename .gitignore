@@ -1,3 +1,5 @@
 .env
 .env
 application/test.py
+application/venv
+application/alembic.ini
