@@ -17,14 +17,17 @@ class user_registration_response(BaseModel):
         from_attributes = True
 
 
-class user_auth(BaseModel):
+class user_login(BaseModel):
     email: EmailStr
     password: str
 
 
-class user_auth_response(BaseModel):
+class user_login_response(BaseModel):
     jwt_token: str
-    auth: bool
+    login: bool
+    password: bool
+    email: bool
+    status: bool
     message: str
 
     class Config:

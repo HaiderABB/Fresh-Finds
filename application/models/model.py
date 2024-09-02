@@ -118,7 +118,7 @@ class OrderItem(Base):
         from_attributes = True
 
 
-class authenticated_user(Base):
+class Authenticated_User(Base):
     __tablename__ = "authenticated_users"
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=False,
                                     nullable=False, unique=True)
