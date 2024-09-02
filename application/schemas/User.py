@@ -34,11 +34,19 @@ class user_login_response(BaseModel):
         from_attributes = True
 
 
+class user_retrieve(BaseModel):
+    jwt_token: str
+
+    class Config:
+        from_attributes: True
+
+
 class user_retrieve_response(BaseModel):
     username: str
     email: EmailStr
     created_at: datetime
     updated_at: datetime
+    token: bool
 
     class Config:
         from_attributes = True

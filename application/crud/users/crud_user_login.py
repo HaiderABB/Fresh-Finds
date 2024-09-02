@@ -1,4 +1,3 @@
-from sqlalchemy import func, text
 from sqlalchemy.orm import Session
 from utils.password_hash import verify_password_bcrypt
 from models.model import User, Authenticated_User
