@@ -24,3 +24,8 @@ def get_products_params(name, price, user_category, db: Session):
     else:
         products = query.all()
         return products
+
+
+def get_product_id(product_id, db: Session):
+    products = db.query(Product).filter(Product.id == product_id).first()
+    return products
