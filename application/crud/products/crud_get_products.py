@@ -7,23 +7,18 @@ def get_products_params(name, price, user_category, db: Session):
     query = db.query(Product)
     if name:
         names = name.split()
-        products = query.all()
         filter_conditions = [Product.product_name.ilike(
             f"%{word}%") for word in names]
-        products = query.filter(or_(*filter_conditions)).all()
-        return products
-    elif price:
+        query = query.filter(or_(*filter_conditions))
+    if price is not None:
         query = query.filter(Product.price <= price)
-        products = query.all()
-        return products
-    elif user_category:
-        query = db.query(Product).join(Category)
-        query = query.filter(Category.category_name.ilike(f"%{user_category}"))
-        products = query.all()
-        return products
-    else:
-        products = query.all()
-        return products
+    if user_category:
+        query = query.join(Category).filter(
+            Category.category_name.ilike(f"%{user_category}"))
+        print(query)
+
+    products = query.all()
+    return products
 
 
 def get_product_id(product_id, db: Session):
