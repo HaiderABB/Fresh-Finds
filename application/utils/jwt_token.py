@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 import jwt
 from datetime import datetime, timedelta, timezone
 import os
@@ -19,3 +20,14 @@ def unsign_jwt_token(jwt_token) -> int:
         return payload["user_id"]
     except PyJWTError as e:
         return 0
+
+
+def verify_jwt_token(jwt_token):
+    try:
+        payload = jwt.decode(
+            jwt_token, os.environ["SECRET_KEY"], os.environ["ALGORITHM"])
+        return payload
+    except jwt.ExpiredSignatureError:
+        raise HTTPException(status_code=401, detail="Token has expired")
+    except jwt.InvalidTokenError:
+        raise HTTPException(status_code=401, detail="Invalid token")

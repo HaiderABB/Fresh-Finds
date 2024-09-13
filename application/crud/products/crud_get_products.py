@@ -15,7 +15,6 @@ def get_products_params(name, price, user_category, db: Session):
     if user_category:
         query = query.join(Category).filter(
             Category.category_name.ilike(f"%{user_category}"))
-        print(query)
 
     products = query.all()
     return products

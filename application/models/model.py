@@ -127,3 +127,14 @@ class Authenticated_User(Base):
 
     class Config:
         from_attributes = True
+
+
+class Admin(Base):
+    __tablename__ = "admins"
+    id: Mapped[int] = mapped_column(
+        Integer, primary_key=True, autoincrement=True, nullable=False, unique=True)
+    user_id: Mapped[int] = mapped_column(Integer, ForeignKey(
+        'users.id', ondelete='CASCADE', onupdate='CASCADE'), nullable=False)
+
+    class Config:
+        from_attributes = True
